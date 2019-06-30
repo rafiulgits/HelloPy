@@ -1,11 +1,19 @@
 from app.models import Customer, Product, Order
 
 from graphene_django.types import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
 import graphene
 
 class CustomerType(DjangoObjectType):
 	class Meta:
 		model = Customer
+		filter_fields = {
+			'id':['exact'],
+			'name': ['exact', 'icontains', 'istartswith'],
+			'phone':['exact',], 
+			'email':['exact']
+		}
+		interfaces = (graphene.relay.Node, )
 
 
 class ProductType(DjangoObjectType):
@@ -20,7 +28,9 @@ class OrderType(DjangoObjectType):
 
 
 class Query(object):
-	all_customers = graphene.List(CustomerType)
+	customer = graphene.relay.Node.Field(CustomerType)
+	all_customers = DjangoFilterConnectionField(CustomerType)
+	
 	all_products = graphene.List(ProductType)
 	all_orders = graphene.List(OrderType)
 
