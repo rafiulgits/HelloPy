@@ -1,6 +1,7 @@
-import asyncio
-from time import time
+from tornado.gen import asyncio
+
 from random import randint
+from time import time
 
 
 async def job(name, future=None):
