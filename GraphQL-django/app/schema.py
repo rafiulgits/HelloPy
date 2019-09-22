@@ -1,8 +1,9 @@
 import graphene
 
 from app import graph
+from moc.graph.schema import Query as MocQuery
 
-class Query(graph.Query,graphene.ObjectType):
+class Query(graph.Query, MocQuery,  graphene.ObjectType):
 	pass
 
 

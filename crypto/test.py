@@ -12,3 +12,16 @@ def decode_string(key):
 		return __decode_string(key.encode()).decode()
 	except UnicodeDecodeError as e:
 		return None
+
+
+
+
+from hashlib import md5,sha256
+def hashvalue(key):
+	a = sha256(key.encode()).hexdigest()
+	return int(a, 16)
+
+
+print(hashvalue('sakkhat.inc') %10**16)
+print(hashvalue('gear-bangladesh')%10**16)
+print(hashvalue('honny') % 10**16)
